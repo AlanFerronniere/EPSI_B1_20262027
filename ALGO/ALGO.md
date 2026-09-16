@@ -5,6 +5,7 @@
 On va travailler avec PHP.
 Il vous faut sur vos machine PHPStorm https://www.jetbrains.com/fr-fr/phpstorm/download/
 Et PHP :
-- [[INSTALL_PHP_XDEBUG_MACOS]] 
-- [[INSTALL_PHP_XDEBUG_WINDOWS]]
+- [[GUIDE_ELEVES_WINDOWS_XAMPP_XDEBUG]]
+- [[GUIDE_ELEVES_MAC_PHP_XDEBUG]]
+
 
