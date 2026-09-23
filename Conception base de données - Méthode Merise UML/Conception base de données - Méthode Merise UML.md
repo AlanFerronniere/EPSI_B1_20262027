@@ -59,7 +59,7 @@ Le MLD est une représentation plus détaillée et technique de la base de donn�
 
 Voici des exemples simples pour illustrer la création d'un MCD puis d'un MLD.
 Ici les termes `PK` désignent les clés primaires (Primary Key) et les `FK` les clés étrangères (Foreign Key)
-#### MCD
+#### MCD en UML
 
 ```mermaid
 
@@ -87,7 +87,7 @@ classDiagram
     Ville "0..*" -- "1" Pays
 ```
 
-#### MLD
+#### MLD (diagramme de BDD ici avec en plus la notation "patte d'oie")
 
 ```mermaid
 erDiagram
