@@ -91,22 +91,22 @@ classDiagram
 
 ```mermaid
 erDiagram
-    PAYS ||--o{ VILLE : "possède"
-    VILLE ||--o{ PERSONNE : "est né à"
+    PAYS ||--o{ VILLES : "possède"
+    VILLES ||--o{ PERSONNES : "est né à"
 
     PAYS {
         int id_pays PK
         string nom
     }
 
-    VILLE {
+    VILLES {
         int id_ville PK
         string nom_ville
         string code_postal
         int id_pays FK
     }
 
-    PERSONNE {
+    PERSONNES {
         int id_personne PK
         string nom
         string prenom
