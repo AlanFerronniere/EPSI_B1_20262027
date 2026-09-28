@@ -15,5 +15,6 @@ https://github.com/AlanFerronniere/Algo_20262027
 - [[Exercice 1 pseudo-code]]
 - [[Exercice 1 en PHP]]
 - [[Exercice 2]]
+- [[Exercice 3]]
 
 
