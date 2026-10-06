@@ -1,0 +1,90 @@
+# Problème de l'héritage
+# Exercice : Gestion de Produits, Kits et Compatibilité Véhicules (Héritage)
+
+## 1. Énoncé & Règles de gestion
+
+Une entreprise spécialisée dans l'aménagement de véhicules commercialise différents types de produits et gère les commandes de ses clients.
+
+### Règles de gestion :
+1. **Les Produits & l'Héritage :**
+   - L'entreprise vend trois types de produits : des **Meubles**, des **Kits** et des **Équipements**.
+   - Tous les produits partagent des caractéristiques communes : une référence unique (code article), une désignation, un prix de vente unitaire et une quantité en stock.
+   - Les meubles possèdent des dimensions (hauteur, largeur, profondeur).
+   - Les kits disposent d'un lien vers une notice de montage.
+   - Les équipements possèdent une catégorie ou des caractéristiques techniques spécifiques.
+2. **Composition des Kits :**
+   - Un kit est composé de meubles (au minimum 2 meubles pour constituer un kit).
+   - Un même meuble peut entrer dans la composition de plusieurs kits différents, éventuellement en plusieurs exemplaires (ex: 1 table et 4 chaises).
+3. **Finitions :**
+   - Les **meubles** et les **kits** peuvent être proposés en 3 finitions prédéfinies : *vernis*, *brut* ou *gris*.
+   - Les équipements n'ont pas de notion de finition.
+4. **Compatibilité Véhicules :**
+   - Chaque véhicule est caractérisé par une marque et un modèle (et éventuellement une année ou génération).
+   - **Certains produits** sont compatibles uniquement avec une liste précise de véhicules.
+   - **Les autres produits** sont dits "universels" et compatibles avec tous les véhicules.
+5. **Suggestions de produits :**
+   - Sur la boutique, un produit peut faire l'objet de suggestions de produits complémentaires (association réflexive : un produit peut recommander d'autres produits).
+
+---
+
+## 2. Schéma de Classes UML
+
+```mermaid
+classDiagram
+    direction TB
+
+    class Produit {
+        <<abstract>>
+        +String reference
+        +String designation
+        +Decimal prixVente
+        +Int stock
+    }
+
+    class Meuble {
+        
+    }
+
+    class Kit {
+        
+    }
+
+    class Equipement {
+        
+    }
+
+    class Finition {
+        +Int idFinition
+        +String libelle
+    }
+
+    class Vehicule {
+        +Int idVehicule
+        +String marque
+        +String modele
+    }
+
+    %% Héritage / Spécialisation
+    Produit <|-- Meuble
+    Produit <|-- Kit
+    Produit <|-- Equipement
+
+    %% Finitions
+    Meuble "*" -- "1" Finition : possede
+    Kit "*" -- "1" Finition : possede
+
+    %% Composition Kit - Meuble
+    Kit "0..*" -- "2..*" Meuble : compose de
+
+    %% Compatibilité véhicules
+    Produit "*" -- "*" Vehicule : compatible avec
+
+    %% Suggestions réflexives
+    Produit "0..*" -- "0..*" Produit : suggere
+```
+
+### Explications des choix de modélisation UML :
+- **Classe mère abstraite `Produit` :** Permet de mutualiser la référence, la désignation, le prix catalogue et le stock. Elle permet également aux lignes de commande, aux suggestions et aux compatibilités véhicules de pointer de manière uniforme vers n'importe quel produit (`Meuble`, `Kit` ou `Equipement`).
+- **Association `Kit` $\leftrightarrow$ `Meuble` avec classe d'association `CompositionKit` :** La cardinalité `2..*` côté Meuble garantit qu'un kit regroupe au moins deux éléments. L'attribut `quantite` dans `CompositionKit` est indispensable si un kit contient $N$ fois la même référence de meuble.
+- **Entité `Finition` :** Reliée uniquement à `Meuble` et `Kit`. Les 3 valeurs (*vernis*, *brut*, *gris*) constituent les instances de cette classe.
+- **Compatibilité Véhicule :** Relation plusieurs-à-plusieurs (`*` - `*`).
