@@ -24,6 +24,11 @@ Une entreprise spécialisée dans l'aménagement de véhicules commercialise dif
    - **Les autres produits** sont dits "universels" et compatibles avec tous les véhicules.
 5. **Suggestions de produits :**
    - Sur la boutique, un produit peut faire l'objet de suggestions de produits complémentaires (association réflexive : un produit peut recommander d'autres produits).
+6. **Commandes Clients :**
+   - On enregistre les clients (nom, prénom, adresse email unique).
+   - Un client passe des commandes (numéro de commande, date, montant global).
+   - Une commande est composée d'une ou plusieurs lignes de commande.
+   - Chaque ligne de commande référence un produit, une quantité commandée et le prix unitaire facturé (historisé au moment de l'achat).
 
 ---
 
@@ -64,6 +69,28 @@ classDiagram
         +String modele
     }
 
+    class Client {
+        +Int idClient
+        +String civilité
+        +String nom
+        +String prenom
+        +String email
+        +String société
+        +String SIRET
+    }
+
+    class Commande {
+        +Int numeroCommande
+        +DateTime dateCommande
+        +Decimal montantTotal
+        +Decimal fraisDePort
+    }
+
+    class LigneCommande {
+        +Int quantite
+        +Decimal prixUnitaireFacture
+    }
+
     %% Héritage / Spécialisation
     Produit <|-- Meuble
     Produit <|-- Kit
@@ -81,6 +108,11 @@ classDiagram
 
     %% Suggestions réflexives
     Produit "0..*" -- "0..*" Produit : suggere
+
+    %% Prise de commande
+    Client "1" -- "0..*" Commande : passe
+    Commande "1" *-- "1..*" LigneCommande : contient
+    LigneCommande "*" -- "1" Produit : reference
 ```
 
 ### Explications des choix de modélisation UML :
@@ -88,3 +120,4 @@ classDiagram
 - **Association `Kit` $\leftrightarrow$ `Meuble` avec classe d'association `CompositionKit` :** La cardinalité `2..*` côté Meuble garantit qu'un kit regroupe au moins deux éléments. L'attribut `quantite` dans `CompositionKit` est indispensable si un kit contient $N$ fois la même référence de meuble.
 - **Entité `Finition` :** Reliée uniquement à `Meuble` et `Kit`. Les 3 valeurs (*vernis*, *brut*, *gris*) constituent les instances de cette classe.
 - **Compatibilité Véhicule :** Relation plusieurs-à-plusieurs (`*` - `*`).
+- **Ligne de commande & Historisation du prix :** L'attribut `prixUnitaireFacture` dans `LigneCommande` évite que la modification ultérieure du prix dans `Produit` ne vienne fausser la facture passée.
