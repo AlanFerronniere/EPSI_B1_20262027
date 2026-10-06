@@ -121,3 +121,118 @@ classDiagram
 - **Entité `Finition` :** Reliée uniquement à `Meuble` et `Kit`. Les 3 valeurs (*vernis*, *brut*, *gris*) constituent les instances de cette classe.
 - **Compatibilité Véhicule :** Relation plusieurs-à-plusieurs (`*` - `*`).
 - **Ligne de commande & Historisation du prix :** L'attribut `prixUnitaireFacture` dans `LigneCommande` évite que la modification ultérieure du prix dans `Produit` ne vienne fausser la facture passée.
+
+## 3. Schéma Relationnel (Mermaid ERD) - Stratégie TPH (Table Per Hierarchy)
+
+Dans l'approche **TPH (Table Per Hierarchy / Single Table)**, l'ensemble de la hiérarchie d'héritage (`Produit`, `Meuble`, `Kit`, `Equipement`) est fusionné dans **une seule et unique table** `PRODUITS`.
+- Une colonne discriminante (`discriminant`) permet d'identifier la spécialisation concrète de chaque enregistrement (`'MEUBLE'`, `'KIT'` ou `'EQUIPEMENT'`).
+- Les attributs et associations spécifiques (comme `id_finition` pour les meubles et kits) deviennent des colonnes acceptant la valeur `NULL` (quand le produit est un équipement).
+- L'association `Kit` - `Meuble` (`KIT_MEUBLE`) fait référence deux fois à la table `PRODUITS`.
+
+```mermaid
+erDiagram
+    CLIENTS ||--o{ COMMANDES : "passe"
+    COMMANDES ||--|{ LIGNES_COMMANDE : "contient"
+    PRODUITS ||--o{ LIGNES_COMMANDE : "concerne"
+
+    FINITIONS |o--o{ PRODUITS : "appliquee_a"
+
+    PRODUITS ||--o{ KIT_MEUBLE : "compose_kit"
+    PRODUITS ||--o{ KIT_MEUBLE : "inclus_dans_kit"
+
+    PRODUITS ||--o{ PRODUIT_VEHICULE : "est_restreint_a"
+    VEHICULES ||--o{ PRODUIT_VEHICULE : "concerne"
+
+    PRODUITS ||--o{ SUGGESTIONS : "propose"
+    PRODUITS ||--o{ SUGGESTIONS : "est_suggere"
+
+    CLIENTS {
+        int id_client PK
+        varchar nom
+        varchar prenom
+        varchar email UK
+        varchar societe
+        varchar siret
+    }
+
+    COMMANDES {
+        int id_commande PK
+        datetime date_commande
+        decimal montant_total
+        decimal frais_de_port
+        int id_client FK
+    }
+
+    LIGNES_COMMANDE {
+        int id_commande PK, FK
+        varchar ref_produit PK, FK
+        int quantite
+        decimal prix_unitaire_facture
+    }
+
+    PRODUITS {
+        varchar reference PK
+        varchar designation
+        decimal prix_vente
+        int stock
+        varchar discriminant
+        int id_finition FK
+    }
+
+    FINITIONS {
+        int id_finition PK
+        varchar libelle UK
+    }
+
+    KIT_MEUBLE {
+        varchar ref_kit PK, FK
+        varchar ref_meuble PK, FK
+    }
+
+    VEHICULES {
+        int id_vehicule PK
+        varchar marque
+        varchar modele
+    }
+
+    PRODUIT_VEHICULE {
+        varchar ref_produit PK, FK
+        int id_vehicule PK, FK
+    }
+
+    SUGGESTIONS {
+        varchar ref_produit_source PK, FK
+        varchar ref_produit_suggere PK, FK
+    }
+```
+
+---
+
+## 4. Modèle Logique de Données (MLD textuel) - TPH
+
+- **CLIENT** (<u>id_client</u>, nom, prenom, email, societe, siret)
+  - `email` : contrainte `UNIQUE`
+  - `societe`, `siret` : optionnels (si client professionnel)
+- **COMMANDE** (<u>id_commande</u>, date_commande, montant_total, frais_de_port, #id_client)
+  - `#id_client` : clé étrangère référençant `CLIENT(id_client)` (`NOT NULL`)
+- **LIGNE_COMMANDE** (<u>#id_commande, #ref_produit</u>, quantite, prix_unitaire_facture)
+  - `#id_commande` : clé étrangère référençant `COMMANDE(id_commande)`
+  - `#ref_produit` : clé étrangère référençant `PRODUIT(reference)`
+- **PRODUIT** (<u>reference</u>, designation, prix_vente, stock, **type_produit**, #id_finition)
+  - `type_produit` : colonne discriminante (`CHECK discriminant IN ('MEUBLE', 'KIT', 'EQUIPEMENT')`)
+  - `#id_finition` : clé étrangère référençant `FINITION(id_finition)` (`NULL` si `discriminant = 'EQUIPEMENT'`)
+- **FINITION** (<u>id_finition</u>, libelle)
+  - `libelle` : contrainte `UNIQUE` ('Vernis', 'Brut', 'Gris')
+- **KIT_MEUBLE** (<u>#ref_kit, #ref_meuble</u>, quantite)
+  - `#ref_kit` : clé étrangère référençant `PRODUIT(reference)` (cible un produit de type 'KIT')
+  - `#ref_meuble` : clé étrangère référençant `PRODUIT(reference)` (cible un produit de type 'MEUBLE')
+  - `quantite` : nombre d'exemplaires du meuble dans ce kit
+- **VEHICULE** (<u>id_vehicule</u>, marque, modele)
+- **PRODUIT_VEHICULE** (<u>#ref_produit, #id_vehicule</u>)
+  - `#ref_produit` : clé étrangère référençant `PRODUIT(reference)`
+  - `#id_vehicule` : clé étrangère référençant `VEHICULE(id_vehicule)`
+- **SUGGESTION** (<u>#ref_produit_source, #ref_produit_suggere</u>)
+  - `#ref_produit_source` : clé étrangère référençant `PRODUIT(reference)`
+  - `#ref_produit_suggere` : clé étrangère référençant `PRODUIT(reference)`
+
+---
