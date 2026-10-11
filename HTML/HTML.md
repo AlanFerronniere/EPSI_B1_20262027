@@ -12,6 +12,8 @@ Normalement je le mets à jour à chaque fin de cours, mais si j'oublie demandez
 
 ### 1- [[Sémantique HTML]]
 ### 2- [[Les sélecteurs CSS]]
+### 3- [[Responsive et Mobile First]]
+### 4- [[Transitions et animations CSS]]
 
 
 
