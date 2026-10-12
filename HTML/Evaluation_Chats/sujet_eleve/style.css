@@ -1,0 +1,237 @@
+/* ========================================================
+   FEUILLE DE STYLE : FélinPourL'Autre
+   ======================================================== */
+
+/* --- 1. Typographie & Reset de base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* todo: police Poppins */
+    font-family: Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* --- 2. Header & Navigation --- */
+/* todo: FLEXBOX A REPARER Le header doit afficher le logo à gauche et la navigation à droite, alignés verticalement */
+    
+.site-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.2rem 2.5rem;
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ea580c;
+
+/* todo: là il faudrait des flexbox mais je ne comprends pas pourquoi ça ne marche jamais :( */
+.site-nav {
+    margin-top: 10px;
+}
+
+.site-nav a {
+    text-decoration: none;
+    color: #475569;
+    font-weight: 500;
+    margin-right: 15px;
+    transition: color 0.2s ease;
+}
+
+.site-nav a:hover {
+    color: #ea580c;
+}
+
+/* --- 3. Hero Banner --- */
+.hero-banner {
+    background: linear-gradient(135deg, #ea580c, #f97316)
+    color: #ffffff;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.hero-banner h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.hero-banner p {
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+/* --- 4. Mise en page globale --- */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+    padding: 0 1.5rem;
+    /* toto: FLEXBOX La barre latérale (sidebar) doit se trouver à droite du contenu principal avec un espace de 2rem */
+}
+
+.main-content {
+    flex: 3;
+}
+
+.sidebar {
+    flex: 1;
+}
+
+.cat-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+    border-bottom: 3px solid #ea580c;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+}
+
+/* --- 5. Grille de cartes félines --- */
+.cat-grid {
+    /* todo: FLEXBOX retour à la ligne */
+    dispaly: flex;
+    gap: 1.8rem;
+}
+
+/* todo: ça marche pas je ne comprends pas */
+cat-card {
+    /* todo: La carte doit être en flexbox vertical pour que le bouton reste aligné en bas */
+    flex: 1 1 calc(50% - 1.8rem);
+    min-width: 280px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cat-figure {
+    width: 100%;
+    margin: 0;
+}
+
+.cat-figure img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.cat-caption, .cat-figure figcaption {
+    font-size: 0.8rem;
+    color: #64748b;
+    padding: 0.4rem 1.2rem;
+    background-color: #f1f5f9;
+    font-style: italic;
+}
+
+.card-body {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.badge {
+    align-self: flex-start;
+    background-color: #ffedd5;
+    color: #c2410c;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+
+.card-body h3 {
+    font-size: 1.35rem;
+    color: #1e293b;
+    margin-bottom: 0.6rem;
+}
+
+.card-body p {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    flex-grow: 1;
+}
+
+.btn-read {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #ea580c;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-read:hover {
+    background-color: #c2410c;
+}
+
+/* --- 6. Sidebar Widgets --- */
+.widget {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+.widget h3 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.8rem;
+}
+
+.widget p {
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.tips-list {
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+/* --- 7. Footer --- */
+.site-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 0.3rem 0;
+}
+
+/* todo: un responsive simple */
+@media (min-width(768)){
+    
+}
