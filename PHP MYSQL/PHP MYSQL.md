@@ -8,6 +8,11 @@ Ce module fait le pont entre les précédents apprentissages :
 
 L'objectif est d'utiliser **PHP** pour dynamiser vos pages web côté serveur, puis **MySQL** pour stocker et manipuler des données de manière persistante (en s'appuyant sur la modélisation de bases de données).
 
+## Code du cours
+
+Le dépôt GitHub officiel contenant le code des séances et les projets pratiques est disponible ici :
+👉 **[AlanFerronniere/PHP_MYSQL_20262027](https://github.com/AlanFerronniere/PHP_MYSQL_20262027)**
+
 ---
 
 ## Configuration de départ
@@ -20,12 +25,6 @@ Il vous faut sur votre machine :
 
 ---
 
-## Code du cours
-
-Le dépôt GitHub officiel contenant le code des séances et les projets pratiques est disponible ici :
-👉 **[AlanFerronniere/PHP_MYSQL_20262027](https://github.com/AlanFerronniere/PHP_MYSQL_20262027)**
-
----
 
 ## Introduction & Historique de PHP
 
