@@ -34,3 +34,21 @@ Essayez les capteurs en utilisant le moniteur série pour afficher les données 
 > https://esp32io.com/tutorials/esp32-ultrasonic-sensor
 > https://esp32io.com/tutorials/esp32-dht22
 
+## Etape 2
+- Faire le montage complet avec tous les capteurs et les boutons sur l'ESP32. Assurez-vous que chaque composant est correctement connecté et fonctionne comme prévu.
+- Tester avec le moniteur série pour vérifier que toutes les données sont collectées correctement.
+
+## Etape 3
+- Compteur de likes, détection de présence (< 1,5 m) et chronométrage cumulé sans bloquer le code.
+
+## Etape 4
+- Ajouter la mesure de température et d'humidité.
+- lever une alerte local (led ou buzzer si la température ou l'humidité dépasse un seuil critique)
+
+## Etape 5
+- Ajouter la connexion Wi-Fi et envoyer les données like et présence vers un serveur central (POST vers une page PHP qui enregistre les données dans une base de données MySQL).
+- Envoyer les alertes de température et d'humidité vers le serveur PHP qui relaie l'alerte par mail au personnel de la galerie.
+
+
+
+

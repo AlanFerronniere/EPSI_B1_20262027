@@ -8,9 +8,9 @@ Bienvenue sur votre serveur de développement pour l'année B1. Ce serveur vous 
 
 Chaque étudiant et chaque groupe de projet dispose d'une URL publique dédiée :
 
-* **Format de l'URL** : `http://<votre_login>.b1.latetedanslephp.fr`
-* **Exemple individuel** : `http://alexandre.b1.latetedanslephp.fr`
-* **Exemple projet** : `http://groupe_ifrocean_1.b1.latetedanslephp.fr` *(fonctionne aussi avec tiret : `groupe-ifrocean-1...`)*
+* **Format de l'URL** : `https://<votre_login>.b1.latetedanslephp.fr`
+* **Exemple individuel** : `https://alexandre.b1.latetedanslephp.fr`
+* **Exemple projet** : `https://groupe-ifrocean-1.b1.latetedanslephp.fr` *(en HTTPS, utiliser les tirets `-` plutôt que les underscores `_`)*
 
 > [!NOTE]
 > Vos identifiants individuels (login, mot de passe SSH, mot de passe BDD) vous ont été transmis par votre formateur. Vous les retrouverez également à tout moment dans votre dossier personnel sur le serveur, dans le fichier `~/MES_ACCES.txt`.
@@ -44,7 +44,7 @@ Vous travaillez sur vos fichiers en local sur votre PC et PhpStorm synchronise a
      * **Authentication type** : `Password` (saisissez votre mot de passe SSH)
      * Testez la connexion avec le bouton **Test Connection**.
    * **Root path** : `/home/<votre_login>/public_html`
-   * **Web server URL** : `http://<votre_login>.b1.latetedanslephp.fr`
+   * **Web server URL** : `https://<votre_login>.b1.latetedanslephp.fr`
 5. Dans l'onglet **Mappings** :
    * **Local path** : dossier de votre projet sur votre PC
    * **Deployment path** : `/`
@@ -102,7 +102,7 @@ Le répertoire web racine est :
 * **Point d'entrée** : Le fichier d'accueil par défaut doit s'appeler `index.php` (ou `index.html`).
 * **Visualisation** : Dès qu'un fichier est enregistré dans `~/public_html`, il est instantanément accessible et exécuté en visitant votre URL :
   ```
-  http://<votre_login>.b1.latetedanslephp.fr
+  https://<votre_login>.b1.latetedanslephp.fr
   ```
 
 ---
@@ -122,7 +122,7 @@ Chaque compte dispose d'un accès dédié à MariaDB :
 Pour administrer visuellement vos tables et données :
 1. Rendez-vous sur :
    ```
-   http://<votre_login>.b1.latetedanslephp.fr/phpmyadmin
+   https://<votre_login>.b1.latetedanslephp.fr/phpmyadmin
    ```
 2. Connectez-vous avec votre utilisateur MariaDB et votre mot de passe BDD.
 3. Seules vos bases de données apparaîtront dans le panneau de gauche.
